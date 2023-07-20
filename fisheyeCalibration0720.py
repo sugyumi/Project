@@ -138,12 +138,13 @@ for idx in range(N_OK):
 
 print("K:\n", K)
 print("D:\n", D)
-# print("rvecs:", rvecs[0])
-# print("tvecs:", tvecs[0])
-# print("openCV rms:", round(rms, 4))
-print("openCV rms:", rms)
-# print("Reprojection Error :", round(np.sqrt(sum(meanErrorTotal) / N_OK), 4))
-print("Reprojection Error :", np.sqrt(sum(meanErrorTotal) / N_OK))
+# print("rvecs:", rvecs)
+# print("tvecs:", tvecs)
+print("openCV rms:", round(rms, 4))
+# print("openCV rms:", rms)
+print("Reprojection Error :", round(np.sqrt(sum(meanErrorTotal) / N_OK), 4))
+# print("Reprojection Error :", np.sqrt(sum(meanErrorTotal) / N_OK))
+print("openCV rms == our Reprojection Error?", rms == np.sqrt(sum(meanErrorTotal) / N_OK))
 print("Found " + str(N_OK) + " valid images for calibration")
 
 # focal length: 렌즈 중심 ~ 이미지 센서 와의 거리
