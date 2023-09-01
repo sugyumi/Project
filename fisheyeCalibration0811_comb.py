@@ -1,7 +1,9 @@
 import cv2
 import numpy as np
 import glob
+import time
 
+start = time.time()
 # 체커보드 내부 코너 개수
 CHECKERBOARD = (9, 10)
 checkboard_size = CHECKERBOARD[0] * CHECKERBOARD[1]
@@ -18,7 +20,7 @@ objpoints = []  # 3D 공간 상의 좌표 (객체 포인트)
 imgpoints = []  # 2D 이미지 상의 좌표 (이미지 포인트)
 
 # 이미지 파일 한 번에 불러오기
-images = glob.glob('0811_50(2)/2/*.bmp')
+images = glob.glob('0901_0004/1/*.bmp')
 print(images)
 
 # 첫 번째 이미지 형태(크기) 저장용 변수 초기화
@@ -95,7 +97,8 @@ rms, K, D, rvecs, tvecs = cv2.fisheye.calibrate(  # rms, K, D, rvecs, tvecs 반�
     calibration_criteria
 )
 
-# @@@
+end = time.time()
+
 meanErrorTotal = []
 for idx in range(N_OK):
     count = 0
@@ -150,10 +153,13 @@ print("openCV rms:", rms)
 # print("openCV rms == our Reprojection Error?", rms == np.sqrt(sum(meanErrorTotal) / N_OK))
 print(f'Found {N_OK} valid images for calibration')
 print(f'valid images: {validImgs}')
+print(f'소요시간:d {end-start}')
 
 f = open("valid.txt", 'w')
 for name in validImgs:
     print(name, file=f)
+print("K\n", K, file=f)
+print("D\n", D, file=f)
 print("openCV rms:", rms, file=f)
 # print("Reprojection Error :", np.sqrt(sum(meanErrorTotal) / N_OK), file=f)
 f.close()
